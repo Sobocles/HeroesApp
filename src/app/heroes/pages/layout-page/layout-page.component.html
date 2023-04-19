@@ -1,0 +1,54 @@
+<mat-sidenav-container fullscreen> <!-- es un componente de Angular Material que crea un contenedor para el menú lateral y el contenido principal de la página.
+    fullscreen: es un atributo del componente que permite establecer el tamaño del contenedor a pantalla completa. Esto significa que el menú lateral y el contenido ocuparán toda la pantalla, sin barras de desplazamiento.-->
+    <!--ACA EMPIEZA EL MENU LATERAL-->
+    <mat-sidenav #sidenav mode="push" [ngStyle]="{ width: '250px' }">
+        <!-- #sidenav, que se utiliza para hacer referencia a él en otras partes del código. 
+            mode="push": es un atributo que establece el modo en que se abre el menú lateral. En este caso, el menú se empujará hacia el contenido principal cuando se abra.
+            [ngStyle]="{ width: '250px' }": es una propiedad de enlace de datos que establece el ancho del menú lateral. En este caso, se establece en 250 píxeles
+        
+        -->
+      <mat-toolbar>
+        <span>Menú</span>
+        <span class="spacer"></span> <!--ES PARA CREAR EL ESPACIO  HORIZONTAL ENTRE MENU Y EL BOTON-->
+        <button mat-icon-button (click)="sidenav.toggle()"> <!--<button mat-icon-button (click)="sidenav.toggle()">: es un botón que se muestra en la barra de herramientas del menú lateral y que se utiliza para abrir y cerrar el menú. Cuando se hace clic en el botón, se llama a la función toggle() del menú lateral.-->
+          <mat-icon>menu</mat-icon>
+        </button>
+  
+      </mat-toolbar>
+  
+      <mat-nav-list> <!--es un componente de Angular Material que crea una lista de navegación que se utiliza en el menú lateral.-->
+        <!--mat-list-item es un componente que se utiliza para crear cada elemento de la lista de navegación.-->
+        <mat-list-item
+          *ngFor="let item of sidebarItems"
+          [routerLink]="item.url"
+          (click)="sidenav.toggle()" 
+        > <!-- (click)="sidenav.toggle()"  cUANDO LE HAGO CLICK A ALGUNA DE LA OPCIONES DE LA LISTA SE CIERRA EL MENU DESPLEGABLE (DE NO ESTAR ESTE TROZO DE CODIGO EL MENU NO SE CIERRA CUADO LE HACEMOS CLICK UNA OPCION)-->
+          <mat-icon matListItemIcon>{{ item.icon }}</mat-icon>
+          {{ item.label }} <!--ES EL NOMBRE DEL LI DE LA LISTA-->
+        </mat-list-item>
+      </mat-nav-list>
+  
+    </mat-sidenav>
+  
+      <!--DESDE AQUI EMPIEZA EL MENU PRINCIPAL DE ARRIBA-->
+    <mat-toolbar color="primary">
+      <button mat-icon-button (click)="sidenav.toggle()"><!--SIRVE PARA ABRIR Y CERRAR EL MENU-->
+        <mat-icon>menu</mat-icon> <!--ES EL ICONO CIRCULAR CON LAS 3 BARRA HORIZONTALES QUE AL HACER CLICK ABRE EL MENU-->
+      </button>
+  
+      <span class="spacer"></span> <!--ES PARA QUE EXISTA UN ESPACIO (QUE SE SE DEFINIO COMO ESTILO GLOBAL) ENTRE EL ICONO Y EL LOGOUT-->
+  
+      <button mat-button>
+        Logout
+      </button>
+  
+    </mat-toolbar>
+  
+  
+    <div class="container p-2">
+  
+      <router-outlet></router-outlet>
+  
+    </div>
+  
+  </mat-sidenav-container>
